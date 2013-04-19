@@ -25,9 +25,11 @@ namespace SiDualMode.OutputAdapter.ConsoleAdapter {
                 Console.ForegroundColor = Configuration.InsertEventColor;
                 Dictionary<string, object> eventValues = outputEvent.Payload.GetPropertyValues();
                 StringBuilder output = new StringBuilder(2048);
-                foreach (var eventValue in eventValues) {
-                    output.Append(eventValue.Key).Append(":").Append(eventValue.Value.ToString()).Append("\t");
-                }
+                //foreach (var eventValue in eventValues) {
+                //    output.Append(eventValue.Key).Append(":").Append(eventValue.Value.ToString()).Append("\t");
+                //}
+                //use payload tostring method instead of getting all of the properties of the event.
+                output = output.Append(outputEvent.Payload.ToString());
                 Console.WriteLine("Insert Event Received at {0} \t {1}", outputEvent.StartTime, output.ToString());
             } else if (Configuration.ShowCti) {
                 Console.ForegroundColor = Configuration.CtiEventColor;
