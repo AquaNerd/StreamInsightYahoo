@@ -7,7 +7,7 @@ using SiDualMode.Base;
 using SiDualMode.Base.Input;
 using SiDualMode.InputAdapter.TestDataAdapter;
 
-namespace SiDualMode {
+namespace SiDualMode.Base {
     public static class RxStream<TPayload> {
 
         private static Func<Type, object, EventShape, IQbservable<StreamInputEvent<TPayload>>> _observable;
@@ -21,7 +21,8 @@ namespace SiDualMode {
                     _observable = cepApplication.GetObservable<Type, object, EventShape, StreamInputEvent<TPayload>>(entityName);
                 } else {
                     //Define and deploy.
-                    _observable = cepApplication.DefineObservable((Type t, object c, EventShape e) => InstantiateObservable(t, c, e));
+                    _observable = cepApplication.DefineObservable(
+                        (Type t, object c, EventShape e) => InstantiateObservable(t, c, e));
                     _observable.Deploy(entityName);
                 }
             }

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.ComplexEventProcessing;
 using Microsoft.ComplexEventProcessing.Linq;
 
+using SiDualMode.Base;
 using SiDualMode.Base.Output;
 
 namespace SiDualMode {

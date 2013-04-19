@@ -35,6 +35,10 @@ namespace ComplexStreamSI {
                     _managementServiceHost.Close();
                 }
             }
+
+            Console.WriteLine("StreamInsight instance has stopped running.");
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadLine();
         }
 
         /// <summary>
@@ -121,7 +125,8 @@ namespace ComplexStreamSI {
         //Process for Yahoo Data
         private static void RunYahooDataProcess(Application cepApplication) {
             var config = new YahooDataInputConfig() {
-                Symbols = new string[] {"AAPL", "DELL", "MSFT" },
+                //Symbols = new string[] {"AAPL", "DELL", "MSFT" },
+                NumberOfItems = 3,
                 RefreshInterval = TimeSpan.FromMilliseconds(500),
                 TimestampIncrement = TimeSpan.FromMilliseconds(500),
                 AlwaysUseNow = true,
@@ -133,7 +138,7 @@ namespace ComplexStreamSI {
                                                                     TimeSpan.FromMilliseconds(200)),
                 null, AdvanceTimePolicy.Drop);
 
-            var data = RxStream<YahooDataEvent>.Create(cepApplication, typeof(YahooDataInputConfig), config,
+            var data = RxStream<YahooDataEvent>.Create(cepApplication, typeof(YahooDataInputFactory), config,
                 EventShape.Point, ats);
 
             var sinkConfig = new ConsoleOutputConfig() {

@@ -67,13 +67,14 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
 
         public static List<YahooDataEvent> CreateNext(YahooDataInputConfig config, int runNumber) {
             List<YahooDataEvent> newReferenceData = new List<YahooDataEvent>();
+            string[] Symbols = new string[] { "AAPL", "DELL", "MSFT" };
 
             //TODO: Add Requestor to get data from YahooFinance
             string symbolList = "";
-            if (config.Symbols.Count() > 1) {
-                symbolList = String.Join("%2C", config.Symbols.Select(w => "%22" + w + "%22").ToArray());
-            } else if (config.Symbols.Count() == 1) {
-                symbolList = String.Join("%2C", "%22" + config.Symbols.First() + "%22");
+            if (Symbols.Count() > 1) {
+                symbolList = String.Join("%2C", Symbols.Select(w => "%22" + w + "%22").ToArray());
+            } else if (Symbols.Count() == 1) {
+                symbolList = String.Join("%2C", "%22" + Symbols.First() + "%22");
             } else {
                 //throw exception.
                 //need symbols
@@ -87,7 +88,7 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
                     doc = XDocument.Load(url);
                 }
                 XElement results = doc.Root.Element("results");
-                foreach (string symbol in config.Symbols) {
+                foreach (string symbol in Symbols) {
                     newReferenceData.Add(ParseXmlRequest(symbol, results));
                 }
             } catch (Exception ex) {
