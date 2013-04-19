@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleStreamSI", "StreamSI\SimpleStreamSI.csproj", "{EEB97270-3109-4243-B472-1F156E527A53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleStreamSI", "SimpleStreamSI\SimpleStreamSI.csproj", "{EEB97270-3109-4243-B472-1F156E527A53}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamInsight21_Example_Server", "StreamInsight21_Example_Server\StreamInsight21_Example_Server.csproj", "{1FE4A373-7813-4C48-8F56-6284D2F4C444}"
 EndProject
