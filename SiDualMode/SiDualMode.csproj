@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FADE1876-C61B-4189-8192-29879F977783}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SiDualMode</RootNamespace>
+    <AssemblyName>SiDualMode</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ComplexEventProcessing, Version=21.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft StreamInsight 2.1\Bin\Microsoft.ComplexEventProcessing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ComplexEventProcessing.Adapters, Version=21.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft StreamInsight 2.1\Bin\Microsoft.ComplexEventProcessing.Adapters.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ComplexEventProcessing.ManagementService, Version=21.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft StreamInsight 2.1\Bin\Microsoft.ComplexEventProcessing.ManagementService.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ComplexEventProcessing.Observable, Version=21.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft StreamInsight 2.1\Bin\Microsoft.ComplexEventProcessing.Observable.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive, Version=1.0.10621.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Reactive Extensions SDK\v1.0.10621\Binaries\.NETFramework\v4.0\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Providers, Version=1.0.10621.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Reactive Extensions SDK\v1.0.10621\Binaries\.NETFramework\v4.0\System.Reactive.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\EventValueExtensions.cs" />
+    <Compile Include="Base\Input\ISourceFactory.cs" />
+    <Compile Include="Base\Input\ObservableTypedEdgeInputAdapter.cs" />
+    <Compile Include="Base\Input\ObservableTypedIntervalInputAdapter.cs" />
+    <Compile Include="Base\Input\ObservableTypedPointInputAdapter.cs" />
+    <Compile Include="Base\Output\ISinkFactory.cs" />
+    <Compile Include="Base\Output\ObserverTypedEdgeOutputAdapter.cs" />
+    <Compile Include="Base\Output\ObserverTypedIntervalOutputAdapter.cs" />
+    <Compile Include="Base\Output\ObserverTypedPointOutputAdapter.cs" />
+    <Compile Include="InputAdapter\YahooFinanceAdapter\YahooDataEvent.cs" />
+    <Compile Include="InputAdapter\YahooFinanceAdapter\YahooDataInputConfig.cs" />
+    <Compile Include="InputAdapter\YahooFinanceAdapter\YahooDataInputFactory.cs" />
+    <Compile Include="InputAdapter\YahooFinanceAdapter\YahooDataProducer.cs" />
+    <Compile Include="RxStream.cs" />
+    <Compile Include="Base\StreamEventConsumer.cs" />
+    <Compile Include="Base\StreamEventProducer.cs" />
+    <Compile Include="Base\StreamInputEvent.cs" />
+    <Compile Include="Base\StreamOutputEvent.cs" />
+    <Compile Include="InputAdapter\TestDataAdapter\TestDataEvent.cs" />
+    <Compile Include="InputAdapter\TestDataAdapter\TestDataInputConfig.cs" />
+    <Compile Include="InputAdapter\TestDataAdapter\TestDataInputFactory.cs" />
+    <Compile Include="InputAdapter\TestDataAdapter\TestDataProducer.cs" />
+    <Compile Include="IQStreamableExtensions.cs" />
+    <Compile Include="OutputAdapter\ConsoleAdapter\ConsoleDataConsumer.cs" />
+    <Compile Include="OutputAdapter\ConsoleAdapter\ConsoleOutputConfig.cs" />
+    <Compile Include="OutputAdapter\ConsoleAdapter\ConsoleOutputFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
