@@ -38,7 +38,7 @@ namespace SiDualMode.Base.Input {
         }
 
         protected override void Dispose(bool disposing) {
-            Stop();
+            //Stop();
             base.Dispose(disposing);
         }
 

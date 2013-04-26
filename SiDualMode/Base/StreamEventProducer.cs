@@ -86,8 +86,8 @@ namespace SiDualMode.Base {
         public void Dispose() {
             //Make sure Dispose is only handled once!
             if (!_disposed) {
-                _disposed = true;
                 Dispose(true);
+                _disposed = true;
                 GC.SuppressFinalize(this);
             }
         }

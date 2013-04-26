@@ -7,7 +7,7 @@ using SiDualMode.Base.Output;
 namespace SiDualMode.OutputAdapter.ConsoleAdapter {
     //This is the factory Class that initializes and creates an instance of the ConsoleDataConsumer object
     //Rx-only model uses ISinkFactory ONLY but for Dual-Mode (Adapter-Model support) ITypedOutputAdapterFactory is used too
-    public class ConsoleOutputFactory : ISinkFactory, ITypedOutputAdapterFactory<ConsoleOutputConfig> {
+    public class ConsoleOutputFactory : ISinkFactory { //, ITypedOutputAdapterFactory<ConsoleOutputConfig> {
         public IObserver<PointEvent<TPayload>> CreatePointObserverSink<TPayload>(object config) {
             return new ConsoleDataConsumer<TPayload>((ConsoleOutputConfig)config);
         }

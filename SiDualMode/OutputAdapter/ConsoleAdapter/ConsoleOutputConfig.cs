@@ -6,5 +6,6 @@ namespace SiDualMode.OutputAdapter.ConsoleAdapter {
         public bool ShowCti { get; set; }
         public ConsoleColor InsertEventColor { get; set; }
         public ConsoleColor CtiEventColor { get; set; }
+        public bool ShowPayloadToString { get; set; }
     }
 }

@@ -10,7 +10,8 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
     /// <summary>
     /// Factory to instantiate a data generator input adapter.
     /// </summary>
-    public sealed class YahooDataInputFactory : ITypedInputAdapterFactory<YahooDataInputConfig>, ISourceFactory {
+    public sealed class YahooDataInputFactory : //ITypedInputAdapterFactory<YahooDataInputConfig>, 
+        ISourceFactory {
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "By Design")]
         public InputAdapterBase Create<TPayload>(YahooDataInputConfig configInfo, EventShape eventShape) {
             CheckPayloadType<TPayload>();

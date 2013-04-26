@@ -25,10 +25,11 @@ namespace ComplexStreamSI {
                 //RunQuery(application);
                 RunYahooDataProcess(application);
 
-
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("StreamInsight instance is running.");
                 Console.WriteLine("Press any key to stop.");
                 Console.ReadLine();
+                Console.ResetColor();
 
                 if (cepServer.IsEmbedded && _managementServiceHost != null) {
                     //Close the management service if created.
@@ -36,9 +37,11 @@ namespace ComplexStreamSI {
                 }
             }
 
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("StreamInsight instance has stopped running.");
             Console.WriteLine("Press any key to exit.");
             Console.ReadLine();
+            Console.ResetColor();
         }
 
         /// <summary>
@@ -125,10 +128,9 @@ namespace ComplexStreamSI {
         //Process for Yahoo Data
         private static void RunYahooDataProcess(Application cepApplication) {
             var config = new YahooDataInputConfig() {
-                //Symbols = new string[] {"AAPL", "DELL", "MSFT" },
-                NumberOfItems = 3,
-                RefreshInterval = TimeSpan.FromMilliseconds(500),
-                TimestampIncrement = TimeSpan.FromMilliseconds(500),
+                Symbols = new string[] { "AAPL", "DELL", "MSFT", "GOOG", "GE" },
+                RefreshInterval = TimeSpan.FromSeconds(5),
+                TimestampIncrement = TimeSpan.FromSeconds(5),
                 AlwaysUseNow = true,
                 EnqueueCtis = false
             };
@@ -143,21 +145,30 @@ namespace ComplexStreamSI {
 
             var sinkConfig = new ConsoleOutputConfig() {
                 ShowCti = true,
+                ShowPayloadToString = false,
                 CtiEventColor = ConsoleColor.Blue,
                 InsertEventColor = ConsoleColor.Green
             };
 
-            var binding = data.ToBinding(cepApplication, typeof(ConsoleOutputFactory), sinkConfig, EventShape.Point);
+            var myQuery = from x in data.ToPointEventStream()
+                          select new {
+                              x.Symbol,
+                              x.LastTradePrice,
+                              x.LastUpdateTime
+                          };
+
+            var binding = myQuery.ToBinding(cepApplication, typeof(ConsoleOutputFactory), sinkConfig, EventShape.Point);
 
             binding.Run("Hello");
         }
 
         private static void RunQuery(Application cepApplication) {
-            var config = new TestDataInputConfig() {
-                NumberOfItems = 20,
-                RefreshInterval = TimeSpan.FromMilliseconds(500),
-                StartDateTime = DateTimeOffset.Now,
-                TimestampIncrement = TimeSpan.FromMilliseconds(500)
+            var config = new YahooDataInputConfig() {
+                Symbols = new string[] { "AAPL", "DELL", "MSFT", "GOOG", "GE" },
+                RefreshInterval = TimeSpan.FromSeconds(0.5),
+                TimestampIncrement = TimeSpan.FromSeconds(0.5),
+                AlwaysUseNow = true,
+                EnqueueCtis = false
             };
 
             AdvanceTimeSettings ats = new AdvanceTimeSettings(new AdvanceTimeGenerationSettings(
@@ -165,7 +176,7 @@ namespace ComplexStreamSI {
                                                                                 TimeSpan.FromMilliseconds(200)),
                                                 null, AdvanceTimePolicy.Drop);
 
-            var data = CepStream<TestDataEvent>.Create(cepApplication, "TestData", typeof(TestDataInputFactory), config,
+            var data = CepStream<YahooDataEvent>.Create(cepApplication, "TestData", typeof(YahooDataInputFactory), config,
                 EventShape.Point, ats);
 
             var query = data.ToQuery(cepApplication, "Test", "Test", typeof(ConsoleOutputFactory),

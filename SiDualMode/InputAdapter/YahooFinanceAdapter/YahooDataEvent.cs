@@ -26,23 +26,22 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
         public decimal? ChangeFromYearHigh { get; set; }
         public decimal? ChangeFromYearLow { get; set; }
         public decimal? ChangeInPercent { get; set; }
-        public decimal? ChangePercent { get; set; }
         public decimal? DailyHigh { get; set; }
         public decimal? DailyLow { get; set; }
-        public DateTime? DividendPayDate { get; set; }
+        public string DividendPayDate { get; set; }
         public decimal? DividendShare { get; set; }
-        public decimal? DividendYield { get; set; }
+        public string DividendYield { get; set; }
         public decimal? EarningsShare { get; set; }
         public decimal? Ebitda { get; set; }
         public decimal? EpsEstimateNextQuarter { get; set; }
         public decimal? EpsEstimateNextYear { get; set; }
         public decimal? EpsEstimateCurrentYear { get; set; }
-        public DateTime? ExDividendDate { get; set; }
+        public string ExDividendDate { get; set; }
         public decimal? FiftyDayMovingAverage { get; set; }
         public DateTime? LastTradeDate { get; set; }
         public decimal? LastTradePrice { get; set; }
         public decimal? MarketCapitalization { get; set; }
-        public decimal? OneYearPriceTarget { get; set; }
+        public string OneYearPriceTarget { get; set; }
         public decimal? Open { get; set; }
         public decimal? PegRatio { get; set; }
         public decimal? PeRatio { get; set; }
@@ -62,12 +61,12 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
         public decimal? YearlyLow { get; set; }
         
         public override string ToString() {
-            return string.Format("{0} - {1} - {2}", Name, LastTradePrice, LastUpdateTime.ToString("MM/dd/yyyy HH:mm:ss.fff"));
+            return string.Format("{0} - {1} - {2}", Name.PadRight(20), LastTradePrice.ToString().PadRight(10), LastUpdateTime.ToString("MM/dd/yyyy HH:mm:ss.fff"));
         }
 
         public static List<YahooDataEvent> CreateNext(YahooDataInputConfig config, int runNumber) {
             List<YahooDataEvent> newReferenceData = new List<YahooDataEvent>();
-            string[] Symbols = new string[] { "AAPL", "DELL", "MSFT" };
+            string[] Symbols = config.Symbols;
 
             //TODO: Add Requestor to get data from YahooFinance
             string symbolList = "";
@@ -113,6 +112,7 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
             newEvent.BookValue = GetDecimal(element.Element("BookValue").Value);
             newEvent.Change = GetDecimal(element.Element("Change").Value);
             newEvent.DividendShare = GetDecimal(element.Element("DividendShare").Value);
+            newEvent.DividendYield = element.Element("DividendYield").Value;
             newEvent.LastTradeDate = GetDateTime(element.Element("LastTradeDate").Value + " " + element.Element("LastTradeTime").Value);
             newEvent.EarningsShare = GetDecimal(element.Element("EarningsShare").Value);
             newEvent.EpsEstimateCurrentYear = GetDecimal(element.Element("EPSEstimateCurrentYear").Value);
@@ -139,14 +139,14 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
             newEvent.ChangeInPercent = GetDecimal(element.Element("ChangeinPercent").Value);
             newEvent.PriceSales = GetDecimal(element.Element("PriceSales").Value);
             newEvent.PriceBook = GetDecimal(element.Element("PriceBook").Value);
-            newEvent.ExDividendDate = GetDateTime(element.Element("ExDividendDate").Value);
+            newEvent.ExDividendDate = element.Element("ExDividendDate").Value;
             newEvent.PeRatio = GetDecimal(element.Element("PERatio").Value);
-            newEvent.DividendPayDate = GetDateTime(element.Element("DividendPayDate").Value);
+            newEvent.DividendPayDate = element.Element("DividendPayDate").Value;
             newEvent.PegRatio = GetDecimal(element.Element("PEGRatio").Value);
             newEvent.PriceEpsEstimateCurrentYear = GetDecimal(element.Element("PriceEPSEstimateCurrentYear").Value);
             newEvent.PriceEpsEstimateNextYear = GetDecimal(element.Element("PriceEPSEstimateNextYear").Value);
             newEvent.ShortRatio = GetDecimal(element.Element("ShortRatio").Value);
-            newEvent.OneYearPriceTarget = GetDecimal(element.Element("OneyrTargetPrice").Value);
+            newEvent.OneYearPriceTarget =element.Element("OneyrTargetPrice").Value;
             newEvent.Volume = GetDecimal(element.Element("Volume").Value);
             newEvent.StockExchange = element.Element("StockExchange").Value;
 

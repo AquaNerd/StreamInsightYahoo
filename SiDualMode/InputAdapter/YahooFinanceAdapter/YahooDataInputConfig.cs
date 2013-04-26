@@ -17,11 +17,8 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
         [DataMember]
         public TimeSpan TimestampIncrement { get; set; }
 
-        //[DataMember]
-        //public string[] Symbols { get; set; }
-
         [DataMember]
-        public int NumberOfItems { get; set; }
+        public string[] Symbols { get; set; }
 
         [DataMember]
         public bool AlwaysUseNow { get; set; }
@@ -31,8 +28,7 @@ namespace SiDualMode.InputAdapter.YahooFinanceAdapter {
 
         public YahooDataInputConfig() {
             RefreshInterval = TimeSpan.FromMilliseconds(500);
-            //Symbols = new string[] {"AAPL", "DELL", "MSFT"};
-            NumberOfItems = 10;
+            Symbols = new string[] { "AAPL", "DELL", "MSFT" };
             TimestampIncrement = TimeSpan.FromMinutes(5);
             StartDateTime = DateTimeOffset.Now.AddMonths(-5);
             AlwaysUseNow = false;
